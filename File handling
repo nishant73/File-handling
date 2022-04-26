@@ -1,0 +1,59 @@
+//package com.company;
+import java.io.*;
+class Student implements Serializable{
+    int age;
+    String name;
+    String sex;
+
+    Student(){
+
+    }
+    Student(int age,String name,String sex){
+        this.age = age;
+        this.name = name;
+        this.sex = sex;
+    }
+    public String toString(){
+        return "Name:- "+name+
+                "\nSex:- "+sex+
+                "\nAge:-"+age;
+    }
+
+}
+public class Main
+{
+
+    public static void main(String args[])throws Exception{
+
+        //initializing file IO
+        File file = new File ("C:\\Users\\nisha\\IdeaProjects\\first\\src\\com\\company\\test");
+        byte[] line;
+        boolean result;
+
+        //Creating file
+        result = file.createNewFile();
+        if(result)System.out.println("File successfully created");
+        else System.out.println("File already exists");
+
+        //class instance
+        Student s = new Student(21,"Nishant","Male");
+
+        //writing object in the class in a file
+        FileOutputStream fos = new FileOutputStream(file);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(s);
+        oos.close();
+        fos.close();
+
+        //reading object from the file
+        FileInputStream fis = new FileInputStream(file);
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        Student s1= (Student)ois.readObject();
+        System.out.println(s);
+        ois.close();
+        fis.close();
+
+    }
+}
+
+
